@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <title>$MODULE - WinRemoteEnum</title>
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-4">
+                    <div id="divError" class="alert alert-danger" style="display: none;">
+                        IP cannot be found.
+                    </div>
+                    <div class="input-group">
+                        <input id="txtSearch" type="text" class="form-control form-control-lg" placeholder="IP">
+                        <button id="btnSearch" type="button" class="btn btn-primary" onclick="search();">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5">
+            $RESULTS
+        </div>
+        <script>
+            document.getElementById('txtSearch').addEventListener('keyup', function(e) {
+                if (e.keyCode === 13) {
+                    document.getElementById('btnSearch').click();
+                }
+            });
+
+            function search() {
+                var ip = document.getElementById('txtSearch').value;
+                var ip_element = document.getElementById(ip);
+                var error_element = document.getElementById('divError');
+        
+                if (ip_element) {
+                    error_element.style.display = 'none';
+                    ip_element.scrollIntoView();
+                }           
+                else
+                    error_element.style.display = '';
+            }
+        </script>
+    </body>
+</html>

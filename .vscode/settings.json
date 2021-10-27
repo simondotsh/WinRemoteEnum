@@ -1,0 +1,10 @@
+{
+    "editor.rulers": [
+        79
+    ],
+    "files.exclude": {
+        "**/__pycache__": true,
+        "venv/": true
+    },
+    "python.pythonPath": "venv/bin/python3",
+}

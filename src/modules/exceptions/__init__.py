@@ -1,0 +1,6 @@
+from .rpc_access_denied import RpcAccessDenied
+from .pipe_not_available import PipeNotAvailable
+from .connection_error import ConnectionError
+from .smb_authentication_error import SmbAuthenticationFailed
+from .interface_not_listening import InterfaceNotListening
+from .unexpected_error import UnexpectedError
