@@ -126,7 +126,14 @@ class Cli:
         if not no_validation:
             return cls.__validate_credentials(config, valid_targets)
         else:
-            return valid_targets
+            # At this point, valid_targets are iterators, and further modules
+            # expect a list of string IPs. Let's fix that.
+            valid_targets_list = []
+
+            for target in valid_targets:
+                valid_targets_list.append(str(target))
+
+            return valid_targets_list
 
     @staticmethod
     def __validate_modules(modules):
