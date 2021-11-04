@@ -79,6 +79,14 @@ optional arguments:
 ## Modules
 The [wiki](https://github.com/simondotsh/WinRemoteEnum/wiki#modules) documents modules with their goals, MS-RPC methods used and design decisions.
 
+| Name | Description |
+| ----------- | ----------- |
+| [users](https://github.com/simondotsh/WinRemoteEnum/wiki/Module-logged_on) | Enumerates local users, groups and their members. |
+| [sessions](https://github.com/simondotsh/WinRemoteEnum/wiki/Module-sessions) | Enumerates net sessions established. |
+| [logged_on](https://github.com/simondotsh/WinRemoteEnum/wiki/Module-logged_on) | Enumerates users logged on. |
+| [shares](https://github.com/simondotsh/WinRemoteEnum/wiki/Module-shares) | Enumerates shares and their first-level content. |
+| [host_info](https://github.com/simondotsh/WinRemoteEnum/wiki/Module-host_info) | Enumerates various OS info and whether the executing user has administrative privileges. |
+
 ## Results
 Results are located in the `results/` directory. Visit the [Reporting wiki](https://github.com/simondotsh/WinRemoteEnum/wiki/Reporting) for more information.
 
