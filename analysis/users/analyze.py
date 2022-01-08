@@ -4,20 +4,20 @@ from argparse import ArgumentParser
 from os.path import isfile, expanduser
 from json import load, dumps, decoder
 
-COMPROMISED_FILE = 'compromised_users.txt'
+COMPROMISED_FILE = 'principals_filter.txt'
 REMOTE_ACCESS_RIDS = [544, 555, 580]
 POTENTIAL_REMOTE_ACCESS_RIDS = [559, 562]
 
 def main():
     args = parse_args()
     results = get_results(args.users_results)
-    users_filter = get_users(args.filter)
+    principals_filter = get_principals(args.filter)
     output = {}
 
     for target in results:
         if target['results']:
             output[target['target']] = get_remote_groups(
-                target['results']['groups'], users_filter
+                target['results']['groups'], principals_filter
             )
         else:
             output[target['target']] = []
@@ -31,8 +31,8 @@ def parse_args():
     )
     parser.add_argument('-f', '--filter', dest='filter', 
         action='store_true', default=False,
-        help='The script will only output members of groups that are '
-             'specified in the compromised_users.txt file.'
+        help='Instead of outputting all members of the groups, '
+             'this will list only those specified in the principals_filter file.'
     )
 
     args = parser.parse_args()
@@ -54,7 +54,7 @@ def get_results(users_results):
 
     return results
 
-def get_users(filter):
+def get_principals(filter):
     if not filter:
         return []
 
@@ -65,7 +65,7 @@ def get_users(filter):
     with open(COMPROMISED_FILE) as f:
         return f.read().lower().splitlines()
 
-def get_remote_groups(groups, users_filter):
+def get_remote_groups(groups, principals_filter):
     remote_groups = []
 
     for group in groups:
@@ -77,8 +77,8 @@ def get_remote_groups(groups, users_filter):
             else:
                 continue
 
-            if users_filter:
-                filtered_members = filter_members(group, users_filter)
+            if principals_filter:
+                filtered_members = filter_members(group, principals_filter)
 
                 if filtered_members:
                     group['members'] = filtered_members
@@ -90,11 +90,11 @@ def get_remote_groups(groups, users_filter):
 
     return remote_groups
 
-def filter_members(group, users_filter):
+def filter_members(group, principals_filter):
     members = []
 
     for member in group['members']:
-        if member['name'].lower() in users_filter:
+        if member['name'].lower() in principals_filter:
             members.append(member)
 
     return members
