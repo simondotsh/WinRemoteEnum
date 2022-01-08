@@ -2,7 +2,7 @@
 
 from argparse import ArgumentParser
 from os.path import isfile, expanduser
-import json
+from json import load, dumps, decoder
 
 COMPROMISED_FILE = 'compromised_users.txt'
 REMOTE_ACCESS_RIDS = [544, 555, 580]
@@ -19,7 +19,7 @@ def main():
             target['results']['groups'], users_filter
         )
 
-        print(json.dumps(target_groups, indent=4))
+        print(dumps(target_groups, indent=4))
 
 def parse_args():
     parser = ArgumentParser()
@@ -44,8 +44,8 @@ def get_results(users_results):
 
     try:
         with open(users_results) as f:
-            results = json.load(f)
-    except json.decoder.JSONDecodeError:
+            results = load(f)
+    except decoder.JSONDecodeError:
         print(f'{users_results}: Invalid JSON file.')
         exit(0)
 
