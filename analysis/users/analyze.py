@@ -12,14 +12,17 @@ def main():
     args = parse_args()
     results = get_results(args.users_results)
     users_filter = get_users(args.filter)
+    output = {}
 
     for target in results:
-        target_groups = {}
-        target_groups[target['target']] = get_remote_groups(
-            target['results']['groups'], users_filter
-        )
+        if target['results']:
+            output[target['target']] = get_remote_groups(
+                target['results']['groups'], users_filter
+            )
+        else:
+            output[target['target']] = []
 
-        print(dumps(target_groups, indent=4))
+    print(dumps(output, indent=4))
 
 def parse_args():
     parser = ArgumentParser()
@@ -54,6 +57,10 @@ def get_results(users_results):
 def get_users(filter):
     if not filter:
         return []
+
+    if not isfile(COMPROMISED_FILE):
+        print(f'{COMPROMISED_FILE}: No such file.')
+        exit(0)
 
     with open(COMPROMISED_FILE) as f:
         return f.read().lower().splitlines()
