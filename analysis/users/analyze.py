@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 from argparse import ArgumentParser
-from os.path import isfile, expanduser
+from os.path import join, dirname, realpath, isfile, expanduser
 from json import load, dumps, decoder
 
-COMPROMISED_FILE = 'principals_filter.txt'
+FILTER_FILE = join(dirname(realpath(__file__)), 'principals_filter.txt')
 REMOTE_ACCESS_RIDS = [544, 555, 580]
 POTENTIAL_REMOTE_ACCESS_RIDS = [559, 562]
 
@@ -58,11 +58,11 @@ def get_principals(filter):
     if not filter:
         return []
 
-    if not isfile(COMPROMISED_FILE):
-        print(f'{COMPROMISED_FILE}: No such file.')
+    if not isfile(FILTER_FILE):
+        print(f'{FILTER_FILE}: No such file.')
         exit(0)
 
-    with open(COMPROMISED_FILE) as f:
+    with open(FILTER_FILE) as f:
         return f.read().lower().splitlines()
 
 def get_remote_groups(groups, principals_filter):
