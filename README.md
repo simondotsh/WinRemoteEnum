@@ -3,6 +3,8 @@ WinRemoteEnum is a module-based collection of operations achievable by a low-pri
 
 Since most is enumerated through exposed built-in MS-RPC methods, it is heavily based off [impacket](https://github.com/SecureAuthCorp/impacket).
 
+Blog post: <https://simondotsh.com/infosec/2022/01/12/winremoteenum-use-cases.html>
+
 ## What Purpose Does WinRemoteEnum Serve?
 While it is possible to obtain similar results using well-known tools, WinRemoteEnum simplifies the process by offering modules operating with minimal input, and generating easy-to-consume reports (HTML and JSON). Therefore, it is a great starting point to enumerate a given scope during an engagement, or to answer specific questions as described in the [Example of Operations](#examples-of-operations) section.
 
